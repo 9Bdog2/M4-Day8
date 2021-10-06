@@ -56,7 +56,7 @@ two ways for redirecting the user
 2)Using history.push()
 
 <Link to="/reservations">
-<div className="nav-link" >Reservations </div>
+<div className="nav-link active" >Reservations </div>
 </Link>
 
 <Route component={() => <h1>404</h1>}/>
@@ -65,4 +65,41 @@ two ways for redirecting the user
 //it's the simplest way of defining a fallback case for displaying like a 404 page when the url does not match any routes
 //<Switch></Switch>
 
+className={location.pathName ==='/reservations' ? 'nav-link active' : 'nav-link'}
+
+
+history.push()
+<Nav.Link onClick={() => history.push('/menu')}>Menu</Nav.Link>
+//you can go back to the previous page
+<Nav.Link onClick={() => history.replace('/menu')}>Menu</Nav.Link>
+//remove the element from the history 
+
+create Menu component that will load on another Route
+
+<Route path="/menu" exact component="{Menu}" />
+
+import items from '../data/menu.json'
+
+const Menu = () => (
+	<Container>
+		{
+			items.map(dish =>(
+				<Row key={dish.id}
+					<Col md={8}>
+						<img src={dish.image} alt="..."/>
+						<h4>
+							{dish.name}
+							<Badge variant="danger">{dish.price}</Badge>
+							<Badge variant="info">{dish.label}</Badge>		
+						</h4>
+					</Col>
+				</Row>
+			))
+		}
+	</Container>
+)
+
+dynamic routes
+<Route path='/details/:pastaID/' component={DishDetails} />
+//valid routes can be /details/0, /details/strive, /details/whatever
 
