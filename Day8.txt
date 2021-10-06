@@ -1,0 +1,68 @@
+Routing / Navigation system in React
+
+the react-router-dom library, how it works and how to pass query parameters
+
+To provide a richer user experience and properly dividing our content we need to divide our components in different routes, like traditional HTML structure
+We'll actually never load a different page 
+will give the feeling of an instant browsing 
+You will be able to implement the react-router-dom library in your project and create a SPA
+
+Fetch parameters in the URl and get them back 
+
+react-router-dom
+
+npm install react-router-dom
+
+for loading a specific component on a specific route, we will need a Route component from react-router-dom 
+
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+//renaming it
+for putting Route components into our app, they need their own to be wrapped inside a Router
+
+<Router>
+.....
+<Route path="/" exact={true} component={Home}/>
+<Route path="/reservations" exact component={Reservations}/>
+</Router>                   
+//wrapp the component
+exact === exact={true}
+
+route is taking our component as a prop, and returning something new 
+HOC - High-order component
+
+history, location and match are additional props given to wrapped components
+thanks to the Route component
+
+export default withRouter(MyNavbar)
+the result withRouter(MyNavbar) is a HOC
+//we are exporting the result value from withRouter
+//If you pass a component into the component prop of a Route we're achiving two things
+1) we're mounting that component just on the specified path 
+2) we're enriching the said component with history , location and match 
+
+if you just want 2), you can wrap its export withRouter function just like we did with MyNavbar 
+
+render={(routerProps) => <Home subTitle="WE can..."/>}
+//the render prop takes a function and returns a component tag
+{...routerProps}
+
+but now this component is not receiving automatically history, location and match anymore, luckly, those props are safely stored in the only argument of the function , render is accepting
+so we can safely spread the content of the parameter in the props of our component
+
+MyNavbar = ({brand, history, Location, match}) => ...(..)
+
+two ways for redirecting the user
+1)Using a <link /> component
+2)Using history.push()
+
+<Link to="/reservations">
+<div className="nav-link" >Reservations </div>
+</Link>
+
+<Route component={() => <h1>404</h1>}/>
+//fallback 
+//the Switch statement will stop whenever a specific route is found 
+//it's the simplest way of defining a fallback case for displaying like a 404 page when the url does not match any routes
+//<Switch></Switch>
+
+
